@@ -16,7 +16,6 @@ class AuthService {
   // Sign up with email, password, and display name
   Future<UserModel?> signUp(
       String email, String password, String displayName) async {
-    print('AuthService: Attempting signup for $email');
     try {
       final AuthResponse res = await _supabase.auth.signUp(
         email: email,
@@ -24,18 +23,10 @@ class AuthService {
         data: {'full_name': displayName},
       ).timeout(const Duration(seconds: 30));
 
-      print('AuthService: Signup call completed. User: ${res.user?.email}');
-
       final User? user = res.user;
       final Session? session = res.session;
 
       if (user != null) {
-        if (session == null) {
-          // User created but no session (likely email verification required)
-          print(
-              'AuthService: User created but no session. Email verification might be required.');
-          // Proceeding as requested by user, even if session is null.
-        }
         return UserModel(
           id: user.id,
           email: user.email ?? '',
@@ -47,18 +38,13 @@ class AuthService {
       // Re-throw custom AuthExceptions
       rethrow;
     } on AuthApiException catch (e) {
-      print(
-          'AuthService: Supabase Auth API Error: ${e.message}, Status: ${e.statusCode}');
       throw _handleSupabaseError(e);
     } on TimeoutException catch (_) {
-      print('AuthService: Signup timed out.');
       throw AuthException(
           'Connection timed out. Please check your internet connection.');
     } on SocketException catch (_) {
-      print('AuthService: Network error.');
       throw AuthException('No internet connection. Please check your network.');
     } catch (e) {
-      print('AuthService: Unexpected signup error: $e');
       throw AuthException('An unexpected error occurred: ${e.toString()}');
     }
   }
@@ -83,8 +69,6 @@ class AuthService {
       }
       throw AuthException('Login failed: Server returned null user.');
     } on AuthApiException catch (e) {
-      print(
-          'AuthService: Supabase Auth API Error: ${e.message}, Status: ${e.statusCode}');
       throw _handleSupabaseError(e);
     } on TimeoutException catch (_) {
       throw AuthException(
@@ -92,7 +76,6 @@ class AuthService {
     } on SocketException catch (_) {
       throw AuthException('No internet connection. Please check your network.');
     } catch (e) {
-      print('AuthService: Unexpected login error: $e');
       throw AuthException('An unexpected error occurred: ${e.toString()}');
     }
   }
@@ -116,7 +99,6 @@ class AuthService {
       await _supabase.auth.signOut();
     } catch (e) {
       // Fail silently on signout or log it
-      print('AuthService: Signout error: $e');
     }
   }
 

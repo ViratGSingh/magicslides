@@ -27,14 +27,12 @@ class StorageService {
   // Download file to user's visible folder (Downloads on Android, Documents on iOS)
   Future<String> downloadToUserFolder(String url, String fileName) async {
     try {
-      print('Starting download from: $url');
       Directory? directory;
 
       // For Android, use Downloads directory
       if (Platform.isAndroid) {
         directory = Directory('/storage/emulated/0/Download');
         if (!await directory.exists()) {
-          print('Downloads directory does not exist, using external storage');
           directory = await getExternalStorageDirectory();
         }
       } else {
@@ -43,7 +41,6 @@ class StorageService {
       }
 
       final String savePath = '${directory!.path}/$fileName';
-      print('Saving to: $savePath');
 
       await _dio.download(
         url,
@@ -60,17 +57,12 @@ class StorageService {
           maxRedirects: 5,
         ),
         onReceiveProgress: (received, total) {
-          if (total != -1) {
-            print(
-                'Download progress: ${(received / total * 100).toStringAsFixed(0)}%');
-          }
+          if (total != -1) {}
         },
       );
 
-      print('Download completed successfully');
       return savePath;
     } catch (e) {
-      print('Download error: $e');
       throw Exception('Failed to download file: $e');
     }
   }

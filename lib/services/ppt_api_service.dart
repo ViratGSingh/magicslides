@@ -30,7 +30,6 @@ class PptApiService {
         //     ...
         //   }
         // }
-        print(body);
 
         if (body['status'] == 'success' && body['data'] != null) {
           final data = body['data'];
@@ -39,7 +38,6 @@ class PptApiService {
 
           // Use fallback URL if API returns empty or null URL
           final String finalPptUrl = (pptUrl.isEmpty) ? fallbackPptUrl : pptUrl;
-          print(finalPptUrl);
 
           return finalPptUrl;
         } else {

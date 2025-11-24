@@ -14,7 +14,6 @@ class ConnectivityService {
           connectivityResult.contains(ConnectivityResult.wifi) ||
           connectivityResult.contains(ConnectivityResult.ethernet);
     } catch (e) {
-      print('Error checking connectivity: $e');
       return false;
     }
   }

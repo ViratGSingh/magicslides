@@ -16,20 +16,11 @@ void main() async {
   final supabaseUrl = dotenv.env['SUPABASE_URL'] ?? '';
   final supabaseKey = dotenv.env['SUPABASE_ANON_KEY'] ?? '';
 
-  print(
-      'Main: Loaded Supabase URL: ${supabaseUrl.isNotEmpty ? "Found" : "Missing"}');
-  if (supabaseUrl.isNotEmpty) {
-    print('Main: URL starts with: ${supabaseUrl.substring(0, 10)}...');
-  }
-  print(
-      'Main: Loaded Supabase Key: ${supabaseKey.isNotEmpty ? "Found" : "Missing"}');
-
   // Initialize Supabase
   await Supabase.initialize(
     url: supabaseUrl,
     anonKey: supabaseKey,
   );
-  print('Main: Supabase initialized');
 
   final user = Supabase.instance.client.auth.currentUser;
   final initialRoute = user != null ? '/home' : '/login';
