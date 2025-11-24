@@ -1,0 +1,44 @@
+Analyzing indianappguy...                                       
+
+   info • Use 'const' with the constructor to improve performance • lib/app.dart:16:23 • prefer_const_constructors
+   info • Don't invoke 'print' in production code • lib/main.dart:19:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:22:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:24:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/main.dart:32:3 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:19:5 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:27:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:35:11 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:50:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:54:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:58:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:61:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:86:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:95:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/auth_service.dart:119:7 • avoid_print
+   info • Don't invoke 'print' in production code • lib/services/ppt_api_service.dart:29:9 • avoid_print
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/forgot_password_view.dart:72:46 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/forgot_password_view.dart:79:39 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/forgot_password_view.dart:81:46 • use_build_context_synchronously
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/home_view.dart:171:40 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/home_view.dart:177:51 • deprecated_member_use
+   info • 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/home_view.dart:311:25 • deprecated_member_use
+   info • 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/home_view.dart:312:25 • deprecated_member_use
+   info • 'groupValue' is deprecated and shouldn't be used. Use a RadioGroup ancestor to manage group value instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/home_view.dart:328:25 • deprecated_member_use
+   info • 'onChanged' is deprecated and shouldn't be used. Use RadioGroup to handle value change instead. This feature was deprecated after v3.32.0-0.0.pre • lib/views/home_view.dart:329:25 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/home_view.dart:527:50 • use_build_context_synchronously
+   info • Use 'const' with the constructor to improve performance • lib/views/home_view.dart:587:15 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/views/home_view.dart:588:24 • prefer_const_constructors
+   info • Use 'const' with the constructor to improve performance • lib/views/home_view.dart:590:26 • prefer_const_constructors
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/home_view.dart:610:45 • deprecated_member_use
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/home_view.dart:616:42 • deprecated_member_use
+   info • Unnecessary instance of 'Container' • lib/views/home_view.dart:642:29 • avoid_unnecessary_containers
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/home_view.dart:751:61 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/home_view.dart:756:49 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/home_view.dart:769:49 • use_build_context_synchronously
+   info • 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss • lib/views/loading_view.dart:46:44 • deprecated_member_use
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/login_view.dart:198:39 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/login_view.dart:201:56 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/signup_view.dart:246:39 • use_build_context_synchronously
+   info • Don't use 'BuildContext's across async gaps, guarded by an unrelated 'mounted' check • lib/views/signup_view.dart:249:56 • use_build_context_synchronously
+  error • The name 'MyApp' isn't a class • test/widget_test.dart:16:35 • creation_with_non_type
+
