@@ -57,18 +57,15 @@ class HomeViewModel extends ChangeNotifier {
         presentationFor: presentationFor,
       );
 
-      final Map<String, String> urls =
-          await _pptApiService.generatePPT(request);
-      _pptUrl = urls['ppt'];
-      final String? pdfUrl = urls['pdf'];
+      _pptUrl = await _pptApiService.generatePPT(request);
 
-      if (pdfUrl != null && pdfUrl.isNotEmpty) {
+      if (_pptUrl != null && _pptUrl!.isNotEmpty) {
         // Generate a filename based on topic and timestamp
         final String fileName =
             'ppt_${DateTime.now().millisecondsSinceEpoch}.pdf';
 
         _downloadedFile = await _storageService.downloadFile(
-          pdfUrl,
+          _pptUrl!,
           fileName,
         );
         return true;

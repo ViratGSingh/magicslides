@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../viewmodels/auth_viewmodel.dart';
+import '../services/connectivity_service.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -189,6 +190,25 @@ class _LoginViewState extends State<LoginView> {
                           ? null
                           : () async {
                               if (_formKey.currentState!.validate()) {
+                                // Check internet connectivity
+                                final connectivityService =
+                                    ConnectivityService();
+                                final isConnected =
+                                    await connectivityService.isConnected();
+
+                                if (!isConnected) {
+                                  if (mounted) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'No internet connection. Please check your network settings.'),
+                                        backgroundColor: Colors.red,
+                                      ),
+                                    );
+                                  }
+                                  return;
+                                }
+
                                 final success = await authViewModel.signIn(
                                   _emailController.text,
                                   _passwordController.text,

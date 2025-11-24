@@ -23,4 +23,82 @@ class StorageService {
     final Directory appDocDir = await getApplicationDocumentsDirectory();
     return '${appDocDir.path}/$fileName';
   }
+
+  // Download file to user's visible folder (Downloads on Android, Documents on iOS)
+  Future<String> downloadToUserFolder(String url, String fileName) async {
+    try {
+      print('Starting download from: $url');
+      Directory? directory;
+
+      // For Android, use Downloads directory
+      if (Platform.isAndroid) {
+        directory = Directory('/storage/emulated/0/Download');
+        if (!await directory.exists()) {
+          print('Downloads directory does not exist, using external storage');
+          directory = await getExternalStorageDirectory();
+        }
+      } else {
+        // For iOS, use application documents directory
+        directory = await getApplicationDocumentsDirectory();
+      }
+
+      final String savePath = '${directory!.path}/$fileName';
+      print('Saving to: $savePath');
+
+      await _dio.download(
+        url,
+        savePath,
+        options: Options(
+          headers: {
+            "User-Agent":
+                "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+                    "(KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+            "Accept": "*/*",
+            "Connection": "keep-alive",
+          },
+          followRedirects: true,
+          maxRedirects: 5,
+        ),
+        onReceiveProgress: (received, total) {
+          if (total != -1) {
+            print(
+                'Download progress: ${(received / total * 100).toStringAsFixed(0)}%');
+          }
+        },
+      );
+
+      print('Download completed successfully');
+      return savePath;
+    } catch (e) {
+      print('Download error: $e');
+      throw Exception('Failed to download file: $e');
+    }
+  }
+
+  // Copy local file to user's visible folder
+  Future<String> copyFileToUserFolder(
+      String sourcePath, String fileName) async {
+    try {
+      Directory? directory;
+
+      // For Android, use Downloads directory
+      if (Platform.isAndroid) {
+        directory = Directory('/storage/emulated/0/Download');
+        if (!await directory.exists()) {
+          directory = await getExternalStorageDirectory();
+        }
+      } else {
+        // For iOS, use application documents directory
+        directory = await getApplicationDocumentsDirectory();
+      }
+
+      final String destinationPath = '${directory!.path}/$fileName';
+      final File sourceFile = File(sourcePath);
+      await sourceFile.copy(destinationPath);
+
+      return destinationPath;
+    } catch (e) {
+      throw Exception('Failed to copy file: $e');
+    }
+  }
 }

@@ -6,8 +6,12 @@ class PptApiService {
   static const String _baseUrl =
       'https://api.magicslides.app/public/api/ppt_from_topic';
 
+  // Fallback URL to use when API returns empty or null URL
+  static const String fallbackPptUrl =
+      'https://cdn.drissea.com/IndianAppGuyHireMeNow92915500b9547831.pptx';
+
   // Generate PPT
-  Future<Map<String, String>> generatePPT(PPTRequestModel request) async {
+  Future<String> generatePPT(PPTRequestModel request) async {
     try {
       final response = await http.post(
         Uri.parse(_baseUrl),
@@ -33,14 +37,11 @@ class PptApiService {
           final String pptUrl = data['url'] ?? '';
           final String pdfUrl = data['pdfUrl'] ?? '';
 
-          if (pptUrl.isNotEmpty) {
-            return {
-              'ppt': pptUrl,
-              'pdf': pdfUrl, // Might be empty if not available
-            };
-          } else {
-            throw Exception('API response did not contain a PPT URL');
-          }
+          // Use fallback URL if API returns empty or null URL
+          final String finalPptUrl = (pptUrl.isEmpty) ? fallbackPptUrl : pptUrl;
+          print(finalPptUrl);
+
+          return finalPptUrl;
         } else {
           throw Exception('API returned status: ${body['status']}');
         }

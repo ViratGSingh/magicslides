@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../viewmodels/home_viewmodel.dart';
 import '../viewmodels/auth_viewmodel.dart';
+import '../services/connectivity_service.dart';
 
 import '../widgets/custom_input.dart';
 import 'result_view.dart';
@@ -834,6 +835,46 @@ class _HomeViewState extends State<HomeView> {
                                                     content: Text(
                                                         'Access ID not configured. Please check .env file.')),
                                               );
+                                              return;
+                                            }
+
+                                            // Check internet connectivity
+                                            final connectivityService =
+                                                ConnectivityService();
+                                            final isConnected =
+                                                await connectivityService
+                                                    .isConnected();
+
+                                            if (!isConnected) {
+                                              if (mounted) {
+                                                showDialog(
+                                                  context: context,
+                                                  builder: (context) =>
+                                                      AlertDialog(
+                                                    backgroundColor:
+                                                        Theme.of(context)
+                                                            .cardColor,
+                                                    title: const Text(
+                                                        'No Internet Connection'),
+                                                    content: const Text(
+                                                        'Please check your network settings and try again.'),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.pop(
+                                                                context),
+                                                        child: Text(
+                                                          'OK',
+                                                          style: TextStyle(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor),
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                );
+                                              }
                                               return;
                                             }
 
